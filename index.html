@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Diagnostic & Appels à projets — MVP V2</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <main class="wrap">
+    <header class="top">
+      <div class="brand">
+        <div class="logo">⚡</div>
+        <h1>ProjetMatch</h1>
+      </div>
+      <p class="tagline">Diagnostique ton projet en 5–8 min — retrouve les offres qui te conviennent.</p>
+    </header>
+
+    <!-- DIAGNOSTIC -->
+    <section id="diagnostic" class="card diag-card">
+      <h2>Diagnostic rapide</h2>
+      <p class="muted">Réponds en ~2 minutes pour obtenir un résumé stratégique et les offres adaptées.</p>
+
+      <form id="diag-form">
+        <!-- Q1: maturité -->
+        <div class="q">
+          <label class="q-title">1 — Où en êtes-vous aujourd'hui ? <span class="q-req">*</span></label>
+          <div class="options">
+            <label><input type="radio" name="maturite" value="idee" /> J’ai une idée <span class="info" title="Vous avez un concept mais pas encore testé.">?</span></label>
+            <label><input type="radio" name="maturite" value="prototype" /> Je teste / prototype <span class="info" title="Prototype, test utilisateur, preuve de concept.">?</span></label>
+            <label><input type="radio" name="maturite" value="amorçage" /> Amorçage / lancement <span class="info" title="Vous êtes lancé, premiers utilisateurs et vous cherchez à structurer/financer.">?</span></label>
+            <label><input type="radio" name="maturite" value="developpement" /> Développement / montée en échelle <span class="info" title="Vous cherchez à changer d’échelle ou sécuriser des tours de financement.">?</span></label>
+          </div>
+        </div>
+
+        <!-- Q2: besoin principal -->
+        <div class="q">
+          <label class="q-title">2 — Quel est votre principal besoin aujourd'hui ? <span class="q-req">*</span></label>
+          <div class="options">
+            <label><input type="radio" name="besoin" value="financier" /> Financement <span class="info" title="Subventions, bourses, prêts, levées.">?</span></label>
+            <label><input type="radio" name="besoin" value="accompagnement" /> Accompagnement / Mentorat <span class="info" title="Incubation, coaching, ingénierie de projet.">?</span></label>
+            <label><input type="radio" name="besoin" value="outil" /> Outils / Services techniques <span class="info" title="Accès à outils, plateformes, accompagnement technique.">?</span></label>
+            <label><input type="radio" name="besoin" value="visibilite" /> Visibilité / Réseau <span class="info" title="Communication, mise en relation, partenariats.">?</span></label>
+          </div>
+        </div>
+
+        <!-- Q3: nature -->
+        <div class="q">
+          <label class="q-title">3 — Nature du projet</label>
+          <div class="options">
+            <label><input type="radio" name="nature" value="ess" /> ESS / social</label>
+            <label><input type="radio" name="nature" value="tech" /> Tech / numérique</label>
+            <label><input type="radio" name="nature" value="culture" /> Culture / création</label>
+            <label><input type="radio" name="nature" value="ecologie" /> Écologie / énergie</label>
+            <label><input type="radio" name="nature" value="autre" /> Autre</label>
+          </div>
+        </div>
+
+        <!-- Q4: statut juridique -->
+        <div class="q">
+          <label class="q-title">4 — Statut actuel</label>
+          <div class="options">
+            <label><input type="radio" name="statut" value="individuel" /> Aucun statut</label>
+            <label><input type="radio" name="statut" value="association" /> Association</label>
+            <label><input type="radio" name="statut" value="entreprise" /> Entreprise</label>
+            <label><input type="radio" name="statut" value="cooperative" /> Coopérative</label>
+          </div>
+        </div>
+
+        <!-- Q5: échéance -->
+        <div class="q">
+          <label class="q-title">5 — Quand avez-vous besoin d’une solution ?</label>
+          <div class="options">
+            <label><input type="radio" name="echeance" value="now" /> Maintenant (0-2 semaines)</label>
+            <label><input type="radio" name="echeance" value="1month" /> Dans ~1 mois</label>
+            <label><input type="radio" name="echeance" value="3months" /> Dans 1-3 mois</label>
+            <label><input type="radio" name="echeance" value="6months" /> Plus tard (>3 mois)</label>
+          </div>
+        </div>
+
+        <!-- Q6: support antérieur -->
+        <div class="q">
+          <label class="q-title">6 — Avez-vous déjà bénéficié d’un dispositif (subvention, incubation, prix...) ?</label>
+          <div class="options">
+            <label><input type="radio" name="previous" value="true" /> Oui</label>
+            <label><input type="radio" name="previous" value="false" /> Non</label>
+            <label><input type="radio" name="previous" value="unknown" /> Je ne sais pas / en cours</label>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="button" id="diag-submit" class="btn-primary">🧭 Générer mon diagnostic</button>
+          <button type="button" id="diag-reset" class="btn-ghost">↺ Réinitialiser</button>
+        </div>
+      </form>
+
+      <div id="diag-result" class="diag-result hidden"></div>
+    </section>
+
+    <!-- OFFERS + FILTERS (affiché après diagnostic ou accessible) -->
+    <section id="offers" class="card offers-card">
+      <div class="offers-head">
+        <h2>Offres & appels à projets</h2>
+        <div class="mini-filters">
+          <select id="filter-stage">
+            <option value="">Filtrer par stade</option>
+            <option value="idee">Idée</option>
+            <option value="prototype">Prototype</option>
+            <option value="amorçage">Amorçage</option>
+            <option value="developpement">Développement</option>
+          </select>
+
+          <select id="filter-need">
+            <option value="">Filtrer par besoin</option>
+            <option value="financier">Financement</option>
+            <option value="accompagnement">Accompagnement</option>
+            <option value="outil">Outil</option>
+            <option value="visibilite">Visibilité</option>
+          </select>
+
+          <button id="clear-filters" class="btn-ghost">Effacer filtres</button>
+        </div>
+      </div>
+
+      <div id="cards" class="cards-grid"></div>
+    </section>
+
+    <!-- WISHLIST -->
+    <aside id="wishlist-container" class="card wishlist-card">
+      <h3>⭐ Ma sélection</h3>
+      <ul id="wishlist-list"></ul>
+      <button id="download-wishlist" class="btn-primary">📥 Télécharger ma sélection</button>
+    </aside>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

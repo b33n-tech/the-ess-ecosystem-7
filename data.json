@@ -1,0 +1,72 @@
+{
+  "sources": [
+    {
+      "name": "Bpifrance",
+      "tags": ["financier","subvention"],
+      "calls": [
+        {
+          "id": "bpi-ia-2025",
+          "title": "Appel à projet IA - Prototype",
+          "deadline": "2025-12-01",
+          "url": "https://bpifrance.fr/ia",
+          "stage": "prototype",
+          "tags": ["financier","outil"],
+          "note": "Soutien pour prototypes IA avec accompagnement technique.",
+          "eligibility": { "previous_support": null }
+        },
+        {
+          "id": "bpi-transition-2025",
+          "title": "Subvention Transition Énergétique",
+          "deadline": "2025-11-15",
+          "url": "https://bpifrance.fr/transition",
+          "stage": "idee",
+          "tags": ["financier"],
+          "note": "Aide aux premières étapes des projets de transition.",
+          "eligibility": { "previous_support": false }
+        }
+      ]
+    },
+    {
+      "name": "Incubateur XYZ",
+      "tags": ["accompagnement"],
+      "calls": [
+        {
+          "id": "xyz-accel-2025",
+          "title": "Programme Accélération 2025",
+          "deadline": "2025-11-30",
+          "url": "https://xyz.fr/acceleration",
+          "stage": "amorçage",
+          "tags": ["accompagnement","outil"],
+          "note": "Programme 6 mois avec mentorat et ateliers.",
+          "eligibility": { "previous_support": true }
+        },
+        {
+          "id": "xyz-mentorat",
+          "title": "Mentorat pour startups",
+          "deadline": "2025-12-10",
+          "url": "https://xyz.fr/mentorat",
+          "stage": "prototype",
+          "tags": ["accompagnement"],
+          "note": "Soutien à la structuration et aux premières offres.",
+          "eligibility": { "previous_support": null }
+        }
+      ]
+    },
+    {
+      "name": "Fondation ABC",
+      "tags": ["financier"],
+      "calls": [
+        {
+          "id": "abc-social-2025",
+          "title": "Subvention Innovation Sociale",
+          "deadline": "2025-12-20",
+          "url": "https://abc.fr/innovation",
+          "stage": "developpement",
+          "tags": ["financier"],
+          "note": "Soutien projets à impact social en phase de déploiement.",
+          "eligibility": { "previous_support": null }
+        }
+      ]
+    }
+  ]
+}
